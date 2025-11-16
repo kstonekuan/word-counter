@@ -2,6 +2,10 @@
 
 A beautiful, comprehensive word counter application with extensive text analytics. Designed for writers, editors, students, and anyone who needs detailed text statistics.
 
+**[🚀 Live](https://kstonekuan.github.io/word-counter/)**
+
+![Word Counter Preview](preview.png)
+
 ## Features
 
 ### 📊 Basic Counts (100% Accurate)
