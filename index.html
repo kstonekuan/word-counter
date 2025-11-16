@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #faf8f5;
+            --bg-secondary: #f1ede6;
+            --bg-card: #ffffff;
+            --text-primary: #2a2520;
+            --text-secondary: #6b6561;
+            --text-tertiary: #9a938e;
+            --accent-1: #c97b4a;
+            --accent-2: #7a9d7e;
+            --accent-3: #8b7ba8;
+            --accent-4: #b85c5c;
+            --border-color: #e0dcd5;
+            --shadow-sm: 0 1px 3px rgba(42, 37, 32, 0.08);
+            --shadow-md: 0 4px 12px rgba(42, 37, 32, 0.12);
+            --shadow-lg: 0 8px 24px rgba(42, 37, 32, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 968px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-1);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 400px;
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            resize: vertical;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-1);
+            box-shadow: 0 0 0 3px rgba(201, 123, 74, 0.1);
+        }
+
+        textarea::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .stats-section {
+            animation: slideInRight 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stats-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .stat-category {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-category:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-title {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .category-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .icon-basic {
+            background: rgba(201, 123, 74, 0.15);
+            color: var(--accent-1);
+        }
+
+        .icon-reading {
+            background: rgba(122, 157, 126, 0.15);
+            color: var(--accent-2);
+        }
+
+        .icon-complexity {
+            background: rgba(139, 123, 168, 0.15);
+            color: var(--accent-3);
+        }
+
+        .icon-characters {
+            background: rgba(184, 92, 92, 0.15);
+            color: var(--accent-4);
+        }
+
+        .stat-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.813rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .stat-unit {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            font-weight: 400;
+            margin-left: 0.25rem;
+        }
+
+        .frequency-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.8s ease-out 0.4s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .frequency-list {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .frequency-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .frequency-item:hover {
+            border-color: var(--accent-1);
+            transform: translateX(4px);
+        }
+
+        .frequency-rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-tertiary);
+            min-width: 2rem;
+        }
+
+        .frequency-word {
+            flex: 1;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .frequency-bar-container {
+            flex: 1;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .frequency-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        .frequency-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 3rem;
+            text-align: right;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .github-icon {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .input-section,
+            .stat-category,
+            .frequency-section {
+                padding: 1.25rem;
+            }
+
+            textarea {
+                min-height: 300px;
+                padding: 1rem;
+            }
+
+            .stat-items {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .frequency-item {
+                flex-wrap: wrap;
+            }
+
+            .frequency-bar-container {
+                width: 100%;
+                order: 4;
+            }
+        }
+
+        .pulse {
+            animation: pulse 0.3s ease-out;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Word Counter</h1>
+        </header>
+
+        <div class="main-grid">
+            <div class="input-section">
+                <div class="section-header">
+                    <h2 class="section-title">Your Text</h2>
+                    <div class="button-group">
+                        <button id="clearBtn" title="Clear all text">Clear</button>
+                        <button id="copyStatsBtn" title="Copy statistics">Copy Stats</button>
+                    </div>
+                </div>
+                <textarea id="textInput"
+                    placeholder="Start typing or paste your text here...&#10;&#10;This tool will analyze:&#10;• Word and character counts&#10;• Text complexity metrics&#10;• Word frequency analysis&#10;• Character type breakdown"
+                    spellcheck="false"></textarea>
+            </div>
+
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-category">
+                        <h3 class="category-title">
+                            <span class="category-icon icon-basic">📊</span>
+                            Basic Counts
+                        </h3>
+                        <div class="stat-items">
+                            <div class="stat-item">
+                                <span class="stat-label">Words</span>
+                                <span class="stat-value" id="wordCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Characters</span>
+                                <span class="stat-value" id="charCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">No Spaces</span>
+                                <span class="stat-value" id="charNoSpaceCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Lines</span>
+                                <span class="stat-value" id="lineCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-category">
+                        <h3 class="category-title">
+                            <span class="category-icon icon-complexity">🧮</span>
+                            Complexity
+                        </h3>
+                        <div class="stat-items">
+                            <div class="stat-item">
+                                <span class="stat-label">Avg Word Length</span>
+                                <span class="stat-value" id="avgWordLength">0.0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Longest Word</span>
+                                <span class="stat-value" id="longestWord">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Unique Words</span>
+                                <span class="stat-value" id="uniqueWords">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-category">
+                        <h3 class="category-title">
+                            <span class="category-icon icon-characters">🔤</span>
+                            Character Types
+                        </h3>
+                        <div class="stat-items">
+                            <div class="stat-item">
+                                <span class="stat-label">Letters</span>
+                                <span class="stat-value" id="letterCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Digits</span>
+                                <span class="stat-value" id="digitCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Whitespace</span>
+                                <span class="stat-value" id="whitespaceCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="frequency-section">
+            <h3 class="category-title">
+                <span class="category-icon icon-basic">📈</span>
+                Top 10 Most Frequent Words
+            </h3>
+            <div id="frequencyList" class="frequency-list">
+                <div class="empty-state">Start typing to see word frequency analysis...</div>
+            </div>
+        </div>
+
+        <footer>
+            <a href="https://github.com/kstonekuan/word-counter" target="_blank" rel="noopener noreferrer"
+                title="View on GitHub">
+                <svg class="github-icon" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+            </a>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
