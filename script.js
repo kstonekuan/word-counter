@@ -1,3 +1,31 @@
+// Theme toggle functionality
+const themeToggle = document.getElementById('themeToggle');
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark-mode');
+    } else if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark-mode');
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark-mode');
+    }
+}
+
+function toggleTheme() {
+    const isDark = document.documentElement.classList.toggle('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+initTheme();
+themeToggle.addEventListener('click', toggleTheme);
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('theme')) {
+        document.documentElement.classList.toggle('dark-mode', e.matches);
+    }
+});
+
 // Get DOM elements
 const textInput = document.getElementById('textInput');
 const clearBtn = document.getElementById('clearBtn');
