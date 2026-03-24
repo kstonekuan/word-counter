@@ -1,0 +1,114 @@
+.frequencySection {
+  background: var(--bg-card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  animation: slideUp 0.8s ease-out 0.4s backwards;
+}
+
+.categoryTitle {
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.categoryIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  background: rgba(201, 123, 74, 0.15);
+  color: var(--accent-1);
+}
+
+.frequencyList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.frequencyItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.frequencyItem:hover {
+  border-color: var(--accent-1);
+  transform: translateX(4px);
+}
+
+.frequencyRank {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  min-width: 2rem;
+}
+
+.frequencyWord {
+  flex: 1;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.frequencyBarContainer {
+  flex: 1;
+  height: 8px;
+  background: var(--bg-secondary);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.frequencyBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.frequencyCount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 3rem;
+  text-align: right;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .frequencySection {
+    padding: 1.25rem;
+  }
+
+  .frequencyItem {
+    flex-wrap: wrap;
+  }
+
+  .frequencyBarContainer {
+    width: 100%;
+    order: 4;
+  }
+}

@@ -1,0 +1,119 @@
+:root {
+  --bg-primary: #faf8f5;
+  --bg-secondary: #f1ede6;
+  --bg-card: #ffffff;
+  --text-primary: #2a2520;
+  --text-secondary: #6b6561;
+  --text-tertiary: #9a938e;
+  --accent-1: #c97b4a;
+  --accent-2: #7a9d7e;
+  --accent-3: #8b7ba8;
+  --accent-4: #b85c5c;
+  --border-color: #e0dcd5;
+  --shadow-sm: 0 1px 3px rgba(42, 37, 32, 0.08);
+  --shadow-md: 0 4px 12px rgba(42, 37, 32, 0.12);
+  --shadow-lg: 0 8px 24px rgba(42, 37, 32, 0.15);
+}
+
+html.dark-mode {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --bg-card: #2a2a2a;
+  --text-primary: #e8e6e3;
+  --text-secondary: #a8a5a0;
+  --text-tertiary: #6b6865;
+  --accent-1: #d9916a;
+  --accent-2: #8bb08f;
+  --accent-3: #a091c0;
+  --accent-4: #cc7070;
+  --border-color: #3a3a3a;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}

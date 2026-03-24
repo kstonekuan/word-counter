@@ -1,0 +1,52 @@
+.themeToggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  padding: 0;
+}
+
+.themeToggle:hover {
+  transform: translateY(-2px) rotate(15deg);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-1);
+}
+
+.themeToggle:active {
+  transform: translateY(0) rotate(0deg);
+}
+
+.icon {
+  position: absolute;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.hidden {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+@media (max-width: 640px) {
+  .themeToggle {
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+  }
+}
