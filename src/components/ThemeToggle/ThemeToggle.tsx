@@ -1,3 +1,4 @@
+import { Moon, Sun } from 'lucide-react'
 import styles from './ThemeToggle.module.css'
 
 interface ThemeToggleProperties {
@@ -14,12 +15,16 @@ export function ThemeToggle({ isDarkMode, onToggle }: ThemeToggleProperties) {
       title="Toggle dark mode"
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      <span className={`${styles.icon} ${isDarkMode ? styles.hidden : ''}`}>
-        ☀️
-      </span>
-      <span className={`${styles.icon} ${isDarkMode ? '' : styles.hidden}`}>
-        🌙
-      </span>
+      <Sun
+        size={20}
+        strokeWidth={1.5}
+        className={`${styles.icon} ${isDarkMode ? styles.hidden : ''}`}
+      />
+      <Moon
+        size={20}
+        strokeWidth={1.5}
+        className={`${styles.icon} ${isDarkMode ? '' : styles.hidden}`}
+      />
     </button>
   )
 }

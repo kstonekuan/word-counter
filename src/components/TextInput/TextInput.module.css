@@ -61,7 +61,48 @@
   border-color: var(--accent-2);
 }
 
+/* Editor container: positions backdrop behind textarea */
+.editorContainer {
+  position: relative;
+}
+
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.5rem;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.backdropContent {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: transparent;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.overflowHighlight {
+  background: rgba(184, 92, 92, 0.18);
+  border-radius: 2px;
+  color: transparent;
+}
+
+:global(html.dark-mode) .overflowHighlight {
+  background: rgba(204, 112, 112, 0.25);
+}
+
 .textarea {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 400px;
   padding: 1.5rem;
@@ -74,6 +115,11 @@
   background: var(--bg-primary);
   color: var(--text-primary);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textareaWithOverflow {
+  background: transparent;
+  caret-color: var(--text-primary);
 }
 
 .textarea:focus {
@@ -93,6 +139,10 @@
 
   .textarea {
     min-height: 300px;
+    padding: 1rem;
+  }
+
+  .backdrop {
     padding: 1rem;
   }
 }

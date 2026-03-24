@@ -1,7 +1,10 @@
 .header {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 3rem;
   animation: slideDown 0.8s ease-out;
+  position: relative;
 }
 
 .title {
@@ -9,6 +12,10 @@
   font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
+}
+
+.trailing {
+  position: absolute;
+  right: 0;
 }

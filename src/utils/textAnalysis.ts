@@ -107,6 +107,38 @@ export function analyzeText(text: string): TextAnalysisResult {
   }
 }
 
+export type LimitMode = 'words' | 'characters'
+
+export function findLimitOverflowIndex(
+  text: string,
+  limitMode: LimitMode,
+  limitValue: number,
+): number | null {
+  if (limitValue <= 0) return 0
+
+  if (limitMode === 'characters') {
+    return text.length > limitValue ? limitValue : null
+  }
+
+  // Word mode: find the character index after the Nth word
+  let wordCount = 0
+  let inWord = false
+  for (let i = 0; i < text.length; i++) {
+    const isWhitespace = /\s/.test(text[i])
+    if (!isWhitespace && !inWord) {
+      wordCount++
+      if (wordCount > limitValue) {
+        return i
+      }
+      inWord = true
+    } else if (isWhitespace) {
+      inWord = false
+    }
+  }
+
+  return null
+}
+
 export function formatStatisticsForClipboard(
   stats: TextAnalysisResult,
 ): string {
