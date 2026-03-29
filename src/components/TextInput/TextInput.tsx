@@ -5,9 +5,12 @@ interface TextInputProperties {
   text: string
   onTextChange: (text: string) => void
   onClear: () => void
+  onCopyText: () => void
   onCopyStats: () => void
+  copyTextButtonLabel: string
   copyButtonLabel: string
   isCopied: boolean
+  isTextCopied: boolean
   overflowIndex: number | null
   limitControls: ReactNode
 }
@@ -16,9 +19,12 @@ export function TextInput({
   text,
   onTextChange,
   onClear,
+  onCopyText,
   onCopyStats,
+  copyTextButtonLabel,
   copyButtonLabel,
   isCopied,
+  isTextCopied,
   overflowIndex,
   limitControls,
 }: TextInputProperties) {
@@ -45,6 +51,14 @@ export function TextInput({
             title="Clear all text"
           >
             Clear
+          </button>
+          <button
+            type="button"
+            className={`${styles.button} ${isTextCopied ? styles.copiedButton : ''}`}
+            onClick={onCopyText}
+            title="Copy text to clipboard"
+          >
+            {copyTextButtonLabel}
           </button>
           <button
             type="button"

@@ -22,6 +22,8 @@ export default function App() {
   const { isDarkMode, toggleDarkMode } = useDarkMode()
   const stats = useTextAnalysis(text)
   const { copyToClipboard, isCopied } = useCopyToClipboard()
+  const { copyToClipboard: copyText, isCopied: isTextCopied } =
+    useCopyToClipboard()
 
   const [limitMode, setLimitMode] = useState<LimitMode | null>(null)
   const [limitValue, setLimitValue] = useState('')
@@ -49,6 +51,10 @@ export default function App() {
     copyToClipboard(formatStatisticsForClipboard(stats))
   }, [copyToClipboard, stats])
 
+  const handleCopyText = useCallback(() => {
+    copyText(text)
+  }, [copyText, text])
+
   const handleClear = useCallback(() => {
     setText('')
   }, [setText])
@@ -65,9 +71,12 @@ export default function App() {
           text={text}
           onTextChange={setText}
           onClear={handleClear}
+          onCopyText={handleCopyText}
           onCopyStats={handleCopyStats}
+          copyTextButtonLabel={isTextCopied ? '✓ Copied!' : 'Copy Text'}
           copyButtonLabel={isCopied ? '✓ Copied!' : 'Copy Stats'}
           isCopied={isCopied}
+          isTextCopied={isTextCopied}
           overflowIndex={overflowIndex}
           limitControls={
             <LimitControls
